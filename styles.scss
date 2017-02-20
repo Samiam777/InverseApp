@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  // min-height: 100vh;
 }
 
 h1 {
@@ -15,4 +16,11 @@ h1 {
 
 .field {
   margin-bottom: 1.5em;
+}
+
+#uploader {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 50%;
+  margin-bottom: 1em;
 }

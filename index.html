@@ -8,7 +8,7 @@
         <div>
           <h1>Inverse Reimbursement Request</h1>
         </div>
-        <form class="" action="index.html" method="post">
+        <form class="" action="index.html" method="post" id="reimbursement-form">
           <div class="field">
             <label>
               Name<br>
@@ -39,12 +39,32 @@
             <input type="text" name="" id=""><br>
           </label>
           </div>
+          <div class="field" name="photo">
+          <progress value="3" max="100" id="uploader"></progress><br>
+          <label>
+            Upload Photo<br>
+            <input type="file" value="upload" required><br>
+          </label>
+          </div>
           <div class="field">
             <button type="submit" name="submit-form">Submit
             </button>
+            <button type="button" onclick="myFunction()">Testing</button>
           </div>
         </form>
       </div>
       <button>
+      <p id="demo"></p>
+      <script>
+        function myFunction() {
+            var x = document.getElementById("reimbursement-form");
+            var text = "";
+            var i;
+            for (i = 0; i < x.length ;i++) {
+                text += x.elements[i].value + "<br>";
+            }
+            document.getElementById("demo").innerHTML = text;
+        }
+      </script>
     </body>
 </html>
