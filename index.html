@@ -80,9 +80,67 @@
 		// Get a reference to the storage service, which is used to create references in your storage bucket
 		var storage = firebase.storage();
 		var d = new Date();
-		var timestamp = d.toUTCString();
+		var timestamp = d.toLocaleTimeString();
+
+		var month = d.getMonth() + 1;
+		var monthString = "";
+		if(month < 10)
+		{
+			monthString = "0" + month;
+		}
+		else
+		{
+			monthString = "" + month;
+		}
+
+		var day = d.getDate();
+		var dayString = "";
+		if(day < 10)
+		{
+			dayString = "0" + day;
+		}
+		else
+		{
+			dayString = "" + day;
+		}
 
 
+		var hour = d.getHours();
+		var hourString = "";
+		if(hour < 10)
+		{
+			hourString = "0" + hour;
+		}
+		else
+		{
+			hourString = "" + hour;
+		}
+
+		var minute = d.getMinutes();
+		var minuteString = "";
+		if(minute < 10)
+		{
+			minuteString = "0" + minute;
+		}
+		else
+		{
+			minuteString = "" + minute;
+		}
+
+
+		var second = d.getSeconds();
+		var secondString = "";
+		if(second < 10)
+		{
+			secondString = "0" + second;
+		}
+		else
+		{
+			secondString = "" + second;
+		}
+
+		var timeIDString = d.getFullYear() + monthString + dayString + hourString + minuteString + secondString;
+		var timeID = parseInt(timeIDString);
 
 		var uploader = document.getElementById('uploader');
 		var fileButton = document.getElementById('inverseFile');
@@ -168,18 +226,26 @@
 			var inverseEmail = document.getElementById("inverseEmail").value;
 			var inverseTelephone = document.getElementById("inverseTel").value;
 			var inverseDescription = document.getElementById("inverseDescription").value;
-			var comments = document.getElementById("inverseComments").value;
+
+			var inverseComments = document.getElementById("inverseComments").value;
 
 
 			//change timestamp to integer YYYYMMDDHHMMSS
 			var firebaseRef = firebase.database().ref();
 			firebaseRef.child("PhotoID").set(lastPhoto);
 			firebaseRef = firebase.database().ref("Reimbursement");
-			firebaseRef.child(timestamp).set(
+			firebaseRef.child(timeID).set(
 			{
+				submittedTimestamp : timestamp,
 				name: inverseName,
 				email: inverseEmail,
 				telephone: inverseTelephone,
+				expenseDescription: inverseDescription,
+				comments: inverseComments,
+				approvedTimestamp: "-",
+				deniedTimestamp: "-",
+				reimbursedTimestamp: "-",
+				notes: "-",
 				photos: photoIDs
 			});
 
