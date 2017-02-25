@@ -2,6 +2,12 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="styles.scss">
+    <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
     <body>
       <div class="container" id="input">
@@ -10,41 +16,39 @@
         </div>
         <form class="" action="index.html" method="post" id="reimbursement-form">
           <div class="field">
-            <label>
-              Name<br>
-              <input type="text" name="name" required><br>
-            </label>
+            <input type="text" name="name" class="inputText" required>
+            <span class="floating-label">Name</span>
           </div>
           <div class="field">
-          <label>
-            Email<br>
-            <input type="email" name="email" required><br>
-          </label>
+          <!-- <label>
+            Email<br> -->
+            <input type="email" name="email" placeholder="Email" required><br>
+          <!-- </label> -->
           </div>
           <div class="field">
-          <label>
-            Cell # (optional)<br>
-            <input type="tel" name="tel"><br>
-          </label>
+          <!-- <label> -->
+            <!-- Cell # (optional)<br> -->
+            <input type="tel" placeholder="Cell # (optional)" name="tel"><br>
+          <!-- </label> -->
           </div>
           <div class="field">
-          <label>
-            Expense Description<br>
-            <input type="text" name="description" required>
-          </label>
+          <!-- <label>
+            Expense Description<br> -->
+            <input type="text" placeholder="Expense Description" name="description" required>
+          <!-- </label> -->
           </div>
-          <div class="field" name="comments">
-          <label>
-            Comments (optional)<br>
-            <input type="text" name="" id=""><br>
-          </label>
+          <div class="field"  name="comments">
+          <!-- <label>
+            Comments (optional)<br> -->
+            <input type="text" name="" placeholder="Comments" id=""><br>
+          <!-- </label> -->
           </div>
           <div class="field" name="photo">
           <progress value="3" max="100" id="uploader"></progress><br>
-          <label>
-            Upload Photo<br>
-            <input type="file" value="upload" required><br>
-          </label>
+          <!-- <label>
+            Upload Photo<br> -->
+            <input type="file" value="upload" placeholder="Upload Photo" required><br>
+          <!-- </label> -->
           </div>
           <div class="field">
             <button type="submit" name="submit-form">Submit
@@ -55,6 +59,9 @@
       </div>
       <button>
       <p id="demo"></p>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
       <script>
         function myFunction() {
             var x = document.getElementById("reimbursement-form");
