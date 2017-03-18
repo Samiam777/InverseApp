@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'Circular';
+  src: url('CircularStd-Book.otf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src: url('CircularStd-Medium.otf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src: url('CircularStd-Bold.otf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src: url('CircularStd-Black.otf');
+  font-weight: 900;
+}
+
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 3vh;
+  text-align: center;
+  font-family: Circular;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #242224;
+  padding-top: 30%;
+}
+
+form {
+  /*height: 100%;*/
+  /*width: 70vw;*/
+}
+
+fieldset {
+  border: none;
+
+}
+
+#input {
+  text-align: left;
+}
+
+input {
+  border: 3px solid #242224;
+  width: 80vw;
+  height: 8vh;
+  margin-top: .3em;
+  font-family: Circular;
+  color: #242224;
+  font-size: 1.2em;
+  padding: 0 1em;
+}
+
+
+label {
+  font-family: Circular;
+  font-weight: 300;
+  color: #878787;
+  width: 100%;
+  font-size: 2vh;
+}
+
+.field {
+  margin-bottom: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#uploader {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 1em 0;
+  width: 100%;
+}
+
+input[type=file] {
+  border: none;
+}
+
+button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border: none;
+  width: 100vw;
+  height: 10vh;
+  font-family: Circular;
+  font-weight: 500;
+  font-size: 3vh;
+  letter-spacing: .1em;
+  background: #50E3C2;
+}
