@@ -67,7 +67,6 @@
 	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-messaging.js"></script>
 	-->
       <script>
-
 	    // Set the configuration for your app
 		// TODO: Replace with your project's config object
 		var config = {
@@ -81,6 +80,7 @@
 		var storage = firebase.storage();
 		var d = new Date();
 		var timestamp = d.toLocaleTimeString();
+
 
 		var month = d.getMonth() + 1;
 		var monthString = "";
@@ -148,6 +148,10 @@
 		var photoIDs = [];
 		var photoCount = 0;
 		var lastPhoto = 0;
+		var uploadComplete = false;
+    var totalPercentage = 0;
+		// inverseSubmit.disabled = true;
+
 		firebase.database().ref().once('value').then(function(snapshot) {
 		photoCount = snapshot.val().PhotoID;
 		});
@@ -183,9 +187,17 @@
 				task.on('state_changed',
 
 				function progress(snapshot) {
-					var percentage = (snapshot.bytesTransferred / snapshot.totalBytes);
-					if(percentage == 1){
-
+					var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          if(percentage == 100)
+          {
+            totalPercentage += percentage / e.target.files.length;
+          }
+          //totalPercentage += percentage;
+          uploader.value = totalPercentage;
+					// uploader.value = (percentage/e.target.files.length + totalPercentage) / e.target.files.length;
+					if (totalPercentage > 99)
+					{
+						uploadComplete = true;
 					}
 				},
 
@@ -195,9 +207,7 @@
 
 
 				function complete() {
-					//alert("done!");
-					//alert(timestamp);
-					//increment a counter here that checks for file count number to be completed
+
 				}
 				);
 
@@ -217,10 +227,9 @@
 
 
 			});
-
 		var database = firebase.database();
 		//var userId = firebase.auth().currentUser.uid;
-
+		// inverseSubmit.disabled = false;
 		submitButton.addEventListener('click', function() {
 			var inverseName = document.getElementById("inverseName").value;
 			var inverseEmail = document.getElementById("inverseEmail").value;
@@ -228,6 +237,13 @@
 			var inverseDescription = document.getElementById("inverseDescription").value;
 
 			var inverseComments = document.getElementById("inverseComments").value;
+
+
+      if(uploadComplete == true)
+      {
+        // submit the form & confirmation message
+      } else
+      // show loading, while still checking for uploadComplete, then submit
 
 
 			//change timestamp to integer YYYYMMDDHHMMSS
