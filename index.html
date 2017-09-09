@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="styles.scss">
+  </head>
+    <body>
+		<pre id="photoID">
+
+		</pre>
+
+      <div class="container" id="input">
+        <div>
+          <h1>Inverse Reimbursement Request</h1>
+        </div>
+        <form class="" action="index.html" method="post" id="reimbursement-form">
+          <div class="field">
+            <label>
+              Name<br>
+              <input type="text" name="name" required id="inverseName"><br>
+            </label>
+          </div>
+          <div class="field">
+          <label>
+            Email<br>
+            <input type="email" name="email" required id="inverseEmail"><br>
+          </label>
+          </div>
+          <div class="field">
+          <label>
+            Cell # (optional)<br>
+            <input type="tel" name="tel" id="inverseTel"><br>
+          </label>
+          </div>
+          <div class="field">
+          <label>
+            Expense Description<br>
+            <input type="text" name="description" required id="inverseDescription">
+          </label>
+          </div>
+          <div class="field" name="comments" >
+          <label>
+            Comments (optional)<br>
+            <input type="text" name="" id="inverseComments"><br>
+          </label>
+          </div>
+          <div class="field" name="photo">
+          <progress value="3" max="100" id="uploader"></progress><br>
+          <label>
+            Upload Photo<br>
+            <input type="file" value="upload" required id="inverseFile" multiple><br>
+          </label>
+          </div>
+          <div class="field">
+            <button type="submit" name="submit-form" id="inverseSubmit">Submit
+            </button>
+          </div>
+        </form>
+      </div>
+	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+
+	<!--<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-messaging.js"></script>
+	-->
+      <script>
+
+	    // Set the configuration for your app
+		// TODO: Replace with your project's config object
+		var config = {
+			apiKey: "AIzaSyAl2CLyRVkHV_YNKBGfRnjJgG8GNlgOq90",
+			authDomain: "inverse-11184.firebaseapp.com",
+			databaseURL: "https://inverse-11184.firebaseio.com/",
+			storageBucket: "inverse-11184.appspot.com",
+		};
+		firebase.initializeApp(config);
+		// Get a reference to the storage service, which is used to create references in your storage bucket
+		var storage = firebase.storage();
+		var d = new Date();
+		var timestamp = d.toLocaleTimeString();
+
+		var month = d.getMonth() + 1;
+		var monthString = "";
+		if(month < 10)
+		{
+			monthString = "0" + month;
+		}
+		else
+		{
+			monthString = "" + month;
+		}
+
+		var day = d.getDate();
+		var dayString = "";
+		if(day < 10)
+		{
+			dayString = "0" + day;
+		}
+		else
+		{
+			dayString = "" + day;
+		}
+
+
+		var hour = d.getHours();
+		var hourString = "";
+		if(hour < 10)
+		{
+			hourString = "0" + hour;
+		}
+		else
+		{
+			hourString = "" + hour;
+		}
+
+		var minute = d.getMinutes();
+		var minuteString = "";
+		if(minute < 10)
+		{
+			minuteString = "0" + minute;
+		}
+		else
+		{
+			minuteString = "" + minute;
+		}
+
+
+		var second = d.getSeconds();
+		var secondString = "";
+		if(second < 10)
+		{
+			secondString = "0" + second;
+		}
+		else
+		{
+			secondString = "" + second;
+		}
+
+		var timeIDString = d.getFullYear() + monthString + dayString + hourString + minuteString + secondString;
+		var timeID = parseInt(timeIDString);
+
+		var uploader = document.getElementById('uploader');
+		var fileButton = document.getElementById('inverseFile');
+		var submitButton = document.getElementById('inverseSubmit');
+		var photoIDs = [];
+		var photoCount = 0;
+		var lastPhoto = 0;
+		firebase.database().ref().once('value').then(function(snapshot) {
+		photoCount = snapshot.val().PhotoID;
+		});
+		/*
+		//photo ID counter
+		var preObject = document.getElementById("photoID");
+
+		//reference to photo ID
+		var dbRefObject = firebase.database().ref.child('photoID');
+
+
+		//syncing object
+		dbRefObject.on('value', snap => );
+		*/
+
+		fileButton.addEventListener('change', function(e) {
+
+			var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+			var d = new Date();
+			var monthNumber = d.getMonth() + 1;
+			var folderName =  d.getFullYear() + "_" + monthNumber + "_" + monthNames[d.getMonth()]  + "/";
+
+			//array that will be looped through later
+			for(i = 0; i < e.target.files.length; i++){
+				var file = e.target.files[i];
+				var photoNumber = photoCount + i + 1;
+				var storageRef = firebase.storage().ref(folderName + photoNumber);
+				photoIDs.push(photoNumber);
+				var task = storageRef.put(file);
+
+
+				//
+				task.on('state_changed',
+
+				function progress(snapshot) {
+					var percentage = (snapshot.bytesTransferred / snapshot.totalBytes);
+					if(percentage == 1){
+
+					}
+				},
+
+				function error(err){
+					alert("error! " + err);
+				},
+
+
+				function complete() {
+					//alert("done!");
+					//alert(timestamp);
+					//increment a counter here that checks for file count number to be completed
+				}
+				);
+
+				if(i == e.target.files.length - 1){
+					lastPhoto = photoNumber;
+				}
+			}
+
+			//
+
+
+			//
+
+
+			//
+
+
+
+			});
+
+		var database = firebase.database();
+		//var userId = firebase.auth().currentUser.uid;
+
+		submitButton.addEventListener('click', function() {
+			var inverseName = document.getElementById("inverseName").value;
+			var inverseEmail = document.getElementById("inverseEmail").value;
+			var inverseTelephone = document.getElementById("inverseTel").value;
+			var inverseDescription = document.getElementById("inverseDescription").value;
+
+			var inverseComments = document.getElementById("inverseComments").value;
+
+
+			//change timestamp to integer YYYYMMDDHHMMSS
+			var firebaseRef = firebase.database().ref();
+			firebaseRef.child("PhotoID").set(lastPhoto);
+			firebaseRef = firebase.database().ref("Reimbursement");
+			firebaseRef.child(timeID).set(
+			{
+				submittedTimestamp : timestamp,
+				name: inverseName,
+				email: inverseEmail,
+				telephone: inverseTelephone,
+				expenseDescription: inverseDescription,
+				comments: inverseComments,
+				approvedTimestamp: "-",
+				deniedTimestamp: "-",
+				reimbursedTimestamp: "-",
+				notes: "-",
+				photos: photoIDs
+			});
+
+
+		});
+
+      </script>
+    </body>
+</html>
