@@ -139,6 +139,7 @@
 			secondString = "" + second;
 		}
 
+    //alert("work"); // to test if code is actually working with firebase
 		var timeIDString = d.getFullYear() + monthString + dayString + hourString + minuteString + secondString;
 		var timeID = parseInt(timeIDString);
 
@@ -205,8 +206,13 @@
 					alert("error! " + err);
 				},
 
-
+        // to complete, make robust
+        // ideally, perform after all photos are uploaded
 				function complete() {
+          if (totalPercentage > 99)
+            // enable submit button and change background to #50E3C2
+            alert("photo");
+
 
 				}
 				);
@@ -244,7 +250,9 @@
         // submit the form & confirmation message
       } else
       // show loading, while still checking for uploadComplete, then submit
+      {
 
+      }
 
 			//change timestamp to integer YYYYMMDDHHMMSS
 			var firebaseRef = firebase.database().ref();
